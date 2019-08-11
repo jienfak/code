@@ -1,0 +1,8 @@
+#!/bin/sh
+. $SHMODS/chores/scriptdir.sh
+rdir="`scriptdir`"
+cd $rdir
+
+for i in ./*/bin/* ; do
+	find $i | xargs -n test -x  | sed 's#\./#../#g' | xargs -n 1 echo
+done

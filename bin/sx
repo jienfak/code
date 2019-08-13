@@ -1,4 +1,1 @@
-#!/bin/sh
-# Simple script to start program with X using my '.xinitrc'.
-
-startx "$HOME/.xinitrc" $@
+./sh_xorg_start_program

@@ -1,8 +1,21 @@
 #!/bin/sh
+
+# Script to generate simple directory based binary name structure.
+
+genname(){
+	withext="`echo $i | sed 's#../exec/##' | sed 's#/#_#g'`"
+	withoutext="${withext%.*}"
+	echo "$withoutext"
+}
+
 . $SHMODS/chores/scriptdir.sh
 rdir="`scriptdir`"
-cd $rdir
+cd "$rdir"
 
-for i in ./*/bin/* ; do
-	find $i | xargs -n test -x  | sed 's#\./#../#g' | xargs -n 1 echo
+bins=`for i in ./exec/* ; do
+	find $i -executable -type f | sed 's#./#../#'
+done`
+
+for i in $bins ; do
+	ln -sf "$i" ./bin/"`genname \"$i\"`"
 done

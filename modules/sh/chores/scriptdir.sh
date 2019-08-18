@@ -1,4 +1,4 @@
 
 scriptdir(){
-	echo "$(dirname `realpath $0`)"
+	echo "$(dirname `readlink -f $0`)"
 }

@@ -17,5 +17,5 @@ bins=`for i in ./exec/* ; do
 done`
 
 for i in $bins ; do
-	ln -sf "$i" ./bin/"`genname \"$i\"`"
+	ln -vsf "$i" ./bin/"`genname \"$i\"`"
 done

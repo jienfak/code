@@ -7,13 +7,20 @@ usage(){
 	exit 1
 }
 
-if [ "$#" -le 2 ] ; then
-	usage
-fi
+[ "$#" -le 2 ] && usage
 
 string="$1"
 shift
-files="$@"
+start_files="$@"
+
+files=""
+for file in $start_files ; do
+	if [ -d $file ] ; then
+		files="$files `find $file -type f`"
+	else
+		files="$files $file"
+	fi
+done
 
 for file in $files ; do
 	echo "$file:"

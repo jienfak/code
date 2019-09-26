@@ -3,7 +3,8 @@
 # Script to generate simple directory based binary name structure.
 
 genname(){
-	withext="`echo $i | sed 's#../exec/##' | sed 's#/#_#g'`"
+	withext="`echo $i  | sed 's#../exec/##' | sed 's#/#_#g' \
+		               | sed 's#._exec_##'`"
 	withoutext="${withext%.*}"
 	echo "$withoutext"
 }
@@ -13,9 +14,11 @@ rdir="`scriptdir`"
 cd "$rdir"
 
 bins=`for i in ./exec/* ; do
-	find $i -executable -type f | sed 's#./#../#'
+	find $i -executable -type f #| sed 's#_\.#/#'
 done`
 
 for i in $bins ; do
-	ln -vsf "$i" ./bin/"`genname \"$i\"`"
+	echo $i
+	echo `readlink -f $i `
+	ln -vsf "`readlink -f $i`" "$BIN/`genname \"$i\"`"
 done

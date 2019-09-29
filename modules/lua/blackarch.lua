@@ -42,7 +42,7 @@ function awesome_getUtilBranch(t)
 	end
 	
 	tr = {}
-	for i=0, #t//branch_num do
+	for i=0, #t/branch_num do
 		table.insert(
 			tr,
 			{
